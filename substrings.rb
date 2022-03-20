@@ -21,16 +21,27 @@ Method returns a hash of the words in the dictionary that appear in the stirng w
 dictionary = ["below","down","go","going","horn","how","howdy","it","i","low","own","part","partner","sit"]
 
 # Naive solution. Big O of N^2 due to nested loops
+# def substring(string, dictionary)
+#   downcasedString = string.downcase.split(' ')
+#   result = {}
+
+#   dictionary.each_with_index do |substring, idx|
+#     downcasedString.each_with_index do |word, idx|
+#       if word.include?(substring)
+#         result[substring] = (result[substring] || 0) + 1
+#       end
+#     end
+#   end
+#   result
+# end
+
+# using the scan method
 def substring(string, dictionary)
-  downcasedString = string.downcase.split(' ')
-  result = {}
+  result = Hash.new(0)
 
   dictionary.each_with_index do |substring, idx|
-    downcasedString.each_with_index do |word, idx|
-      if word.include?(substring)
-        result[substring] = (result[substring] || 0) + 1
-      end
-    end
+    matches = string.downcase.scan(substring).length
+    result[substring] = matches unless matches == 0
   end
   result
 end
